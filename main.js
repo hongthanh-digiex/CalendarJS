@@ -31,6 +31,23 @@ let currDate = date.getDate()
 let currMonth = date.getMonth()
 let currYear = date.getFullYear()
 
+// Click date
+const clickDate = () => {
+    let cells = document.querySelectorAll('.cell')
+
+    cells.forEach((cell) => {
+        cell.addEventListener('click', function () {
+            cells.forEach((cell) => {
+                cell.classList.remove('active')
+                this.classList.add('active')
+            })
+            currDate = cell.innerHTML
+            currDay = new Date(`${currMonth + 1} ${currDate}, ${currYear}`).getDay()
+            renderDate()
+        })
+    })
+}
+
 //InnerHTML Date
 const renderDate = () => {
     month.innerHTML = `${arrayMonth[currMonth]} ${currYear}`
@@ -38,14 +55,6 @@ const renderDate = () => {
     dayOfWeek.innerHTML = arrayDayOfWeek[currDay]
 }
 renderDate()
-
-// Click date
-const clickDate = (date) => {
-    currDate = date
-    currDay = new Date(`${currMonth + 1} ${currDate}, ${currYear}`).getDay()
-
-    renderDate()
-}
 
 //render dayOfWeek
 const renderHeadDay = () => {
@@ -71,20 +80,22 @@ const renderTable = () => {
                 dateContent += '<td></td>'
             }
             for (let j = 1; j <= 7 - firstDayofMonth; j++) {
-                dateContent += `<td class="cell" onclick="clickDate(${date})" >${date}</td>`
+                dateContent += `<td class="cell">${date}</td>`
                 date++
             }
             dateContent += '</tr>'
         }
 
         for (let j = 1; j <= 7 && date <= lastDateofMonth; j++) {
-            dateContent += `<td class="cell" onclick="clickDate(${date})">${date}</td>`
+            dateContent += `<td class="cell">${date}</td>`
             date++
         }
 
         dateContent += '</tr>'
     }
     table.innerHTML = dateContent
+
+    clickDate()
 }
 renderTable()
 

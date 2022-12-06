@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calendar</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="calendar">
+                <div class="date">
+                    <p class="month"></p>
+                    <p class="day"></p>
+                    <p class="dayOfWeek"></p>
+                </div>
+                <div class="tableCalendar">
+                    <table>
+                        <thead>
+                            <tr class="headDay"></tr>
+                        </thead>
+
+                        <tbody class="tableCalendarContent"></tbody>
+                    </table>
+                </div>
+                <div class="nav">
+                    <a href="#" class="prevYear"><<</a>
+                    <a href="#" class="prev"><</a>
+                    <select name="" id="selectDate"></select>
+                    <select name="" id="selectMonth" onchange="selectMonth()"></select>
+                    <input type="number" id="year" />
+                    <button onclick="selectFullDate()">Ok</button>
+                    <a href="#" class="next">></a>
+                    <a href="#" class="nextYear">>></a>
+                </div>
+            </div>
+        </div>
+
+        <script src="./main.js"></script>
+        <script></script>
+    </body>
+</html>

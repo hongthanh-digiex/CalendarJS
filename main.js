@@ -167,35 +167,25 @@ renderSelect(new Date(currYear, currMonth + 1, 0).getDate(), '#selectDate', curr
 
 document.querySelector('#year').setAttribute('value', currYear)
 
-// let selectedMonth = 0
 document.querySelector('#selectMonth').addEventListener('change', (event) => {
     let selectedMonth = event.target.value
-    let lastDateofSelectedMonth = new Date(currYear, selectedMonth, 0).getDate()
+    let selectedYear = document.querySelector('#year').value
+    let lastDateofSelectedMonth = new Date(selectedYear, selectedMonth, 0).getDate()
     renderSelect(lastDateofSelectedMonth, '#selectDate', currDate) //renderDate
 })
-// let selectedYear = 0
 document.querySelector('#year').addEventListener('blur', (event) => {
     let selectedYear = event.target.value
-    let lastDateofSelectedMonth = new Date(selectedYear, currMonth, 0).getDate()
+    let selectedMonth = document.querySelector('#selectMonth').value
+    let lastDateofSelectedMonth = new Date(selectedYear, selectedMonth, 0).getDate()
     renderSelect(lastDateofSelectedMonth, '#selectDate', currDate) //renderDate
 })
-
-// console.log({ selectedMonth, selectedYear })
-
-// const selectMonth = () => {
-//     let selectedMonth = document.querySelector('#selectMonth').value
-
-//     let selectedYear = document.querySelector('#year').value
-
-//     let lastDateofSelectedMonth = new Date(selectedYear, selectedMonth, 0).getDate()
-//     renderSelect(lastDateofSelectedMonth, '#selectDate', currDate) //renderDate
-// }
 
 // Click Ok
 const selectFullDate = () => {
     currDate = document.querySelector('#selectDate').value
     currMonth = document.querySelector('#selectMonth').value - 1
     currYear = document.querySelector('#year').value
+    currDay = new Date(`${currMonth + 1} ${currDate}, ${currYear}`).getDay()
 
     renderTable()
     renderDate()

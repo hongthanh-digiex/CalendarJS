@@ -25,16 +25,14 @@ let arrayMonth = [
     'December',
 ]
 
-let date = new Date()
-let currDay = date.getDay()
-let currDate = date.getDate()
-let currMonth = date.getMonth()
-let currYear = date.getFullYear()
+let today = new Date()
+let currDay = today.getDay()
+let currDate = today.getDate()
+let currMonth = today.getMonth()
+let currYear = today.getFullYear()
 
 // Click date
-const clickDate = () => {
-    let cells = document.querySelectorAll('.cell')
-
+const clickDate = (cells) => {
     cells.forEach((cell) => {
         cell.addEventListener('click', function () {
             cells.forEach((cell) => {
@@ -95,7 +93,15 @@ const renderTable = () => {
     }
     table.innerHTML = dateContent
 
-    clickDate()
+    let cells = document.querySelectorAll('.cell')
+
+    cells.forEach((cell) => {
+        if (cell.innerHTML == currDate) {
+            cell.classList.add('active')
+        }
+    })
+
+    clickDate(cells)
 }
 renderTable()
 
@@ -148,21 +154,42 @@ prevYear.addEventListener('click', () => {
 })
 
 //Click day
-const renderSelect = (end, id) => {
+const renderSelect = (end, id, currNumber) => {
     let data = ''
     for (let i = 1; i <= end; i++) {
-        data += `<option value="${i}">${i}</option>`
+        data += `<option value="${i}" ${i == currNumber ? 'selected' : ''}>${i}</option>`
     }
     document.querySelector(id).innerHTML = data
 }
 
-renderSelect(12, '#selectMonth') //renderMonth
+renderSelect(12, '#selectMonth', currMonth + 1) //renderMonth
+renderSelect(new Date(currYear, currMonth + 1, 0).getDate(), '#selectDate', currDate) //renderDate
 
-const selectMonth = () => {
-    let selectedMonth = document.querySelector('#selectMonth').value
+document.querySelector('#year').setAttribute('value', currYear)
+
+// let selectedMonth = 0
+document.querySelector('#selectMonth').addEventListener('change', (event) => {
+    let selectedMonth = event.target.value
     let lastDateofSelectedMonth = new Date(currYear, selectedMonth, 0).getDate()
-    renderSelect(lastDateofSelectedMonth, '#selectDate') //renderDate
-}
+    renderSelect(lastDateofSelectedMonth, '#selectDate', currDate) //renderDate
+})
+// let selectedYear = 0
+document.querySelector('#year').addEventListener('blur', (event) => {
+    let selectedYear = event.target.value
+    let lastDateofSelectedMonth = new Date(selectedYear, currMonth, 0).getDate()
+    renderSelect(lastDateofSelectedMonth, '#selectDate', currDate) //renderDate
+})
+
+// console.log({ selectedMonth, selectedYear })
+
+// const selectMonth = () => {
+//     let selectedMonth = document.querySelector('#selectMonth').value
+
+//     let selectedYear = document.querySelector('#year').value
+
+//     let lastDateofSelectedMonth = new Date(selectedYear, selectedMonth, 0).getDate()
+//     renderSelect(lastDateofSelectedMonth, '#selectDate', currDate) //renderDate
+// }
 
 // Click Ok
 const selectFullDate = () => {

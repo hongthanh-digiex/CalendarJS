@@ -10,5 +10,4 @@ About Project:
 
 *   Task have't done :
 
--   Active date
 -   Select Date

@@ -7,7 +7,3 @@ About Project:
     -   Prev/Next Month
     -   Prev/Next Year
     -   Select Date
-
-*   Task have't done :
-
--   Select Date
